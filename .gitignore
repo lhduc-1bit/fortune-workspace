@@ -1,0 +1,8 @@
+/mysql_data/
+/fortune-web/
+/game-microservice/
+/fortune-api/
+/bit-partner-mini-games/
+/bit-mini-games/
+.idea
+.DS_Store

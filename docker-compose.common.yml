@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: fortune.mysql
+    command: --default-authentication-plugin=caching_sha2_password
+    restart: always
+    networks:
+      - app-network  
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  memcached:
+    image: memcached
+    container_name: fortune.memcached
+    restart: always
+    networks:
+      - app-network
+
+  redis:
+    image: redis
+    container_name: fortune.redis
+    restart: always
+    networks:
+      - app-network
+      
+  mongo:
+    image: mongo
+    container_name: fortune.mongo
+    restart: always
+    networks:
+      - app-network    	
+
+networks:
+  app-network:
+    name: share-network
+    external: true

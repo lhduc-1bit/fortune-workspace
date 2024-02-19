@@ -1,0 +1,70 @@
+version: '3.9'
+
+services:            
+  fortune-service:
+    image: 1bitdev/1bit:nginx-php8.2
+    platform: linux/amd64
+    container_name: fortune.api
+    volumes:
+      - ./fortune-api:/www
+      - ./fortune-api/config/supervisor/workers.conf:/etc/supervisor/conf.d/workers.conf
+      - ./conf/openssl_legacy.cnf:/usr/lib/ssl/openssl_legacy.cnf
+    ports:
+      - 8080:80
+      - 6001:6001
+    restart: always
+    environment:
+      - OPENSSL_CONF=/usr/lib/ssl/openssl_legacy.cnf
+    networks:
+      - app-network  
+      - share-network  
+      
+  minigames-service:
+    image: 1bitdev/1bit:nginx-php8.2
+    platform: linux/amd64
+    container_name: fortune.minigames
+    volumes:
+      - ./bit-mini-games:/www
+      - ./bit-mini-games/config/supervisor/workers.conf:/etc/supervisor/conf.d/workers.conf
+    ports:
+      - 8081:80
+    restart: always  
+    networks:
+      - app-network  
+      - share-network
+   
+  partner-minigames-service:
+    image: 1bitdev/1bit:nginx-php8.2
+    platform: linux/amd64
+    container_name: fortune.partner-minigames
+    volumes:
+      - ./bit-partner-mini-games:/www
+    ports:
+      - 8082:80
+    restart: always  
+    networks:
+      - app-network  
+      - share-network
+      
+  game-service:
+    image: 1bitdev/1bit:nginx-php8.2
+    platform: linux/amd64
+    container_name: fortune.game
+    volumes:
+      - ./game-microservice:/www
+      - ./conf/openssl_legacy.cnf:/usr/lib/ssl/openssl_legacy.cnf
+    ports:
+      - 8083:80
+    restart: always
+    environment:
+      - OPENSSL_CONF=/usr/lib/ssl/openssl_legacy.cnf
+    networks:
+      - app-network  
+      - share-network    	
+      
+networks:
+  app-network:
+    name: app-network
+  share-network:
+    name: share-network
+    external: true
