@@ -2,10 +2,8 @@
 
 ### Clone git sources
 ```
-fortune-workspace/fortune-api
-fortune-workspace/bit-mini-games
-fortune-workspace/bit-partner-mini-games
-fortune-workspace/game-microservice
+cd fortune-workspace
+git clone git@github.com:1Bit-Software-Development-Corp/lottery-api.git
 ...
 ```
 
@@ -13,6 +11,11 @@ fortune-workspace/game-microservice
 ```
 User: 1bitdev
 Token: dckr_pat_nnp86UhOcIGdD2un94AzKbjm27s
+```
+
+### Create docker network
+```shell
+docker network create share-network
 ```
 
 ### Start common services
